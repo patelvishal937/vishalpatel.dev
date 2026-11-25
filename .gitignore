@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env*
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+
+# local notes and tooling (private context, not for the public repo)
+CLAUDE.md
+.claude/
+*.log

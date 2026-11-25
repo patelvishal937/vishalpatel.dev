@@ -1,0 +1,114 @@
+<!doctype html>
+<!--
+  Source for public/resume.pdf. Edit this file, then run:
+    npm run resume
+  (renders it to public/resume.pdf with headless Chrome, A4, one page)
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vishal Patel · Resume</title>
+<style>
+  @font-face { font-family: Inter; src: url("../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2"); font-weight: 400; }
+  @font-face { font-family: Inter; src: url("../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2"); font-weight: 500; }
+  @font-face { font-family: Inter; src: url("../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2"); font-weight: 600; }
+  @font-face { font-family: Inter; src: url("../node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2"); font-weight: 700; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font: 400 10pt/1.42 Inter, -apple-system, sans-serif; color: #1f1f1f; padding: 11mm 14mm 4mm; }
+  a { color: #1d4ed8; text-decoration: none; }
+  h1 { font: 700 23pt/1 Inter, sans-serif; letter-spacing: 0.06em; text-align: center; margin: 0; }
+  .role { text-align: center; color: #1d4ed8; font-weight: 600; font-size: 11.4pt; margin: 6px 0 3px; }
+  .contact { white-space: nowrap; text-align: center; font-size: 9.6pt; color: #444; }
+  h2 { font: 700 10.6pt/1 Inter, sans-serif; letter-spacing: 0.12em; color: #1e3a8a; margin: 12px 0 6px; padding-bottom: 3px; border-bottom: 1.4px solid #1e3a8a; }
+  p { margin: 0; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 6px; }
+  .row b { font-weight: 600; }
+  .row span { color: #555; font-size: 9.6pt; white-space: nowrap; }
+  .sub { font-weight: 600; margin-top: 5px; }
+  .sub a, .sub small { font-weight: 400; font-size: 9.6pt; }
+  .sub small { color: #666; }
+  ul { margin: 2px 0 0; padding-left: 16px; }
+  li { margin: 2px 0; }
+  li::marker { font-size: 8pt; }
+  li, .skills span, p { white-space: nowrap; }
+  p.sum { white-space: normal; text-align: justify; }
+  strong { font-weight: 600; }
+  .skills { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 3px 10px; }
+  .skills b { font-weight: 600; }
+</style>
+</head>
+<body>
+  <h1>VISHAL PATEL</h1>
+  <div class="role">AI-First Engineer · Flutter &amp; Full-Stack Developer · MCP / AI Agents</div>
+  <div class="contact">
+    +91 9313741251 · <a href="mailto:patelvishal93137@gmail.com">patelvishal93137@gmail.com</a> · Ahmedabad (open to Bengaluru) ·
+    <a href="https://www.linkedin.com/in/patel-vishal-b46b2b240/">LinkedIn</a> · <a href="https://github.com/patelvishal937">GitHub</a>
+  </div>
+
+  <h2>SUMMARY</h2>
+  <p class="sum">AI-First Engineer with ~3 years shipping production AI products end to end: <strong>Flutter</strong> apps on iOS and Android, full-stack <strong>TypeScript / Next.js / Node.js</strong> web apps, and <strong>MCP servers</strong> that let LLM agents (Claude, ChatGPT, Cursor) build and deploy real software. I direct <strong>Claude Code</strong> and <strong>Cursor</strong> agents through most of my code, review every diff, and own what ships: <strong>2,500+ app downloads</strong>, a <strong>98/100</strong> MCP quality score, and a solo SaaS launched in <strong>7 days</strong>.</p>
+
+  <h2>EXPERIENCE</h2>
+  <div class="row"><b>Quest Labs (Questera) | AI-First Engineer</b><span>May 2024 – Present · Remote (US startup)</span></div>
+
+  <div class="sub">Greta – AI App &amp; Website Builder · MCP Server · <a href="https://github.com/Questera-Marketing/greta-mcp">GitHub</a></div>
+  <ul>
+    <li>Built Greta's remote <strong>MCP server</strong> end to end: <strong>45+ tools</strong>, Streamable HTTP, <strong>OAuth 2.1</strong>, live for all prod users</li>
+    <li>Raised its <strong>Smithery quality score 56 → 98</strong> by rewriting tool names and descriptions for LLM agents</li>
+    <li>Agent guardrails: <strong>credit caps</strong>, spend reporting, two-step <strong>confirmToken</strong> approvals, safe retries</li>
+    <li>Growth toolset doubled site actions <strong>9 → 18</strong> with <strong>29 test files</strong> passing; <strong>12 apps</strong> built end to end pre-launch</li>
+  </ul>
+
+  <div class="sub">Greta – 3D Website Generation · Landing Pages · Marketplace · <a href="https://greta.sh/">greta.sh</a></div>
+  <ul>
+    <li><strong>Prompt → 3D website</strong>: prebuilt <strong>Three.js / WebGL</strong> scene runtime, .glb models, scroll and pointer camera</li>
+    <li>Own project type in <strong>2 weeks</strong>; tuned on <strong>~180 sites</strong>; 3D object cost cut <strong>18 → 9 credits</strong></li>
+    <li><strong>Landing Page Generation</strong> (brief → live page) and <strong>Marketplace Engine</strong> (clone via MCP)</li>
+  </ul>
+
+  <div class="sub">Greta AI – Mobile App (Flutter) · <a href="https://play.google.com/store/apps/details?id=com.questera.greta">Play Store</a> · <a href="https://apps.apple.com/us/app/greta-ai/id6756906622">App Store</a></div>
+  <ul>
+    <li>Prompt-to-app builder on <strong>iOS + Android</strong>: <strong>2,500+ downloads</strong>, <strong>920 MAU (+18%)</strong>, <strong>4.8★</strong> on Google Play</li>
+    <li><strong>16 store releases</strong> in 6 months; <strong>BLoC / Cubit</strong>, GoRouter, GetIt, Dio, clean architecture</li>
+    <li>LLM token streaming over <strong>AWS Lambda</strong>: live code preview, runtime model switching, <strong>1-click deploy</strong></li>
+    <li><strong>StoreKit 2 + Play Billing</strong> subscriptions, <strong>FCM</strong> push, <strong>Sentry</strong> monitoring, streaks and rewards engine</li>
+    <li>Unified login for 2 customer types (lifetime deal + subscription); traced and killed an expired-token bug</li>
+  </ul>
+
+  <div class="sub">Quest Flutter SDK – AI Gamification · <a href="https://pub.dev/packages/questlabs_flutter_sdk">pub.dev</a></div>
+  <ul>
+    <li><strong>3 SDKs</strong> (Flutter, SwiftUI, Compose) with server-driven UI: flow changes need <strong>0 releases</strong></li>
+  </ul>
+
+  <div class="row"><b>Prepseed – EdTech | Flutter Developer</b><span>Oct 2023 – May 2024 · Ahmedabad</span></div>
+  <ul>
+    <li><strong>1 Flutter codebase for 4 user roles</strong> with offline-first sync and <strong>FCM</strong> deep-link notifications</li>
+  </ul>
+
+  <h2>PROJECTS</h2>
+  <div class="sub">Clipmetry – AI Instagram Analytics SaaS <small>· solo founder · <a href="https://www.clipmetry.com">clipmetry.com</a></small></div>
+  <ul>
+    <li>Launched <strong>solo in 7 days</strong>: <strong>Next.js</strong>, <strong>Supabase</strong> (Postgres + auth), Apify, <strong>Gemini</strong>, Razorpay</li>
+    <li>Outlier score <strong>0–100</strong> vs trimmed 30-day median, Gemini hook analysis, alerts at <strong>5× baseline</strong></li>
+    <li>SEO / AEO from day one: <strong>13 guides</strong>, <strong>6 comparison pages</strong>, <strong>2 free tools</strong>, llms.txt; listed on G2 and Capterra</li>
+  </ul>
+  <div class="sub">AI-Assisted Engineering Workflow</div>
+  <ul>
+    <li>Custom <strong>Claude skills</strong> for phase-gated builds (data → domain → UI); <strong>I review every diff</strong></li>
+  </ul>
+
+  <h2>TECHNICAL SKILLS</h2>
+  <div class="skills">
+    <b>AI / LLM</b><span>Claude Code, Cursor, MCP, AI agents, prompt engineering, Gemini API, LLM streaming</span>
+    <b>Mobile</b><span>Flutter, Dart, BLoC, Riverpod, GoRouter, SwiftUI, Jetpack Compose, IAP, FCM, App Store</span>
+    <b>Frontend</b><span>TypeScript, JavaScript, React, Next.js, Tailwind CSS, Three.js, WebGL</span>
+    <b>Backend</b><span>Node.js, Express, REST APIs, OAuth 2.1, PostgreSQL, Supabase, Firebase, AWS Lambda</span>
+    <b>Tools</b><span>Git, GitHub, CI/CD, Sentry, Vercel, Netlify, Razorpay, Apify, Figma, testing</span>
+  </div>
+
+  <h2>EDUCATION &amp; ACHIEVEMENTS</h2>
+  <p><strong>L.D. College of Engineering</strong>, B.E. IT, 2024 · CGPA 8.2/10 &nbsp;|&nbsp; <strong>SSIP Gujarat State-Level Winner</strong></p>
+</body>
+</html>
