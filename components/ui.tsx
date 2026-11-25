@@ -163,7 +163,7 @@ export function StoreBadges({ appStore, googlePlay }: { appStore: string; google
 
 /* ---------- end-of-page call to action ---------- */
 
-export function MoreCta({ title = "Want to know more?", text, cta = "Get in touch", href = "/#contact" }: {
+export function MoreCta({ title = "Want to know more?", text, cta = "Get in touch", href = "/contact" }: {
   title?: string;
   text?: string;
   cta?: string;

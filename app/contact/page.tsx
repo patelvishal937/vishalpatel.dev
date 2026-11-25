@@ -1,6 +1,13 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import Home from "@/components/Home";
 
-// Contact now lives in the "Say hello" section of the home page.
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with Vishal Patel: email, GitHub, LinkedIn and resume. Open to AI, full-stack and mobile roles.",
+  alternates: { canonical: "/contact" },
+};
+
+// Same one-page site, opened at the contact section.
 export default function ContactPage() {
-  redirect("/#contact");
+  return <Home section="contact" />;
 }

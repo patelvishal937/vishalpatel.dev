@@ -55,14 +55,15 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
 .topnav a.l:hover, .topnav a.l.on { color: #fff; }
 
 /* ---------------- hero ---------------- */
-.hero-h { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; overflow: hidden; isolation: isolate; }
+.hero-h { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 400px 24px 80px; overflow: hidden; isolation: isolate; }
 .hero-h .orb { position: absolute; top: -180px; left: 50%; width: 340px; height: 340px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); z-index: -1; }
 .hero-h .bloom { position: absolute; inset: 0; z-index: -2; background: radial-gradient(60% 55% at 50% 0%, rgba(227, 18, 75, 0.26), rgba(227, 18, 75, 0.06) 55%, transparent 75%); }
 .lines { position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: repeating-linear-gradient(90deg, transparent 0 125px, rgba(255, 255, 255, 0.05) 125px 126px); background-position: center; mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%); }
 .hero-scene { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1.2s ease; }
 .hero-scene.ready { opacity: 1; }
+.hero-h:has(.hero-scene.ready) .orb { opacity: 0; transition: opacity 0.8s ease; }
 .hero-scene canvas { display: block; width: 100% !important; height: 100% !important; }
-.hero-h h1 { font-size: clamp(60px, 9vw, 120px); line-height: 1; font-weight: 500; }
+.hero-h h1 { font-size: clamp(60px, 8vw, 104px); line-height: 1; font-weight: 500; }
 .hero-h p { color: var(--mute); font-size: 18px; line-height: 30px; max-width: 700px; margin: 32px auto 40px; }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.24s both; }
 .hero-h .pill { width: 200px; padding: 0; }

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const c = getCaseStudy(slug);
   if (!c) return {};
-  return { title: c.title, description: c.summary, openGraph: { title: c.title, description: c.summary } };
+  return { title: c.title, description: c.summary, alternates: { canonical: `/work/${c.slug}` }, openGraph: { title: c.title, description: c.summary } };
 }
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -30,7 +30,7 @@ export default async function CaseStudyPage({ params }: Props) {
     <article>
       <div className="cs-bar wrap">
         <div className="in">
-          <Link className="back" href="/#work" aria-label="Back to all work">
+          <Link className="back" href="/work" aria-label="Back to all work">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M19 12H5m6-6-6 6 6 6" />
             </svg>

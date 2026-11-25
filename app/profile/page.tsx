@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-// The profile now lives in the "A bit about me" section of the home page.
+// Old URL: the profile is the About section now.
 export default function ProfilePage() {
-  redirect("/#about");
+  permanentRedirect("/about");
 }
