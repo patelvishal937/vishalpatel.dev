@@ -115,16 +115,15 @@ const releases = [
 
 export function ReleaseTimeline() {
   return (
-    <ol style={{ display: "flex", overflowX: "auto", padding: "0 0 6px", margin: 0, listStyle: "none" }}>
+    <ol className="rtl">
       {releases.map((r) => (
-        <li key={r.v} style={{ flex: "1 0 110px", position: "relative", paddingTop: 30 }}>
-          <div style={{ position: "absolute", top: 8, left: 0, right: 0, height: 2, background: "#2f2f35" }} />
-          <div style={{ position: "absolute", top: 2, left: 0, width: 14, height: 14, borderRadius: "50%", background: "#7c5cff", boxShadow: "0 0 0 5px #7c5cff30" }} />
-          <div className="mono" style={{ color: "#c4b5fd", fontSize: 12 }}>
+        <li key={r.v}>
+          <i aria-hidden="true" />
+          <div className="mono v">
             {r.v}
             {r.when ? ` · ${r.when}` : ""}
           </div>
-          <div style={{ color: "#aaa", fontSize: 13, marginTop: 4, paddingRight: 10 }}>{r.what}</div>
+          <div className="w">{r.what}</div>
         </li>
       ))}
     </ol>

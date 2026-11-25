@@ -7,11 +7,13 @@
   Fonts: the reference uses PP Mondwest (titles) and PP Neue Montreal (body)
   from Pangram Pangram. They are licensed fonts, so they are not bundled.
   Drop the .woff2 files into public/fonts/ with the names below and they are
-  picked up automatically; until then Instrument Serif and Inter stand in.
+  picked up once you uncomment the @font-face rules below; until then Instrument Serif and Inter stand in.
 */
+/* To use the reference fonts, add the files to public/fonts/ and uncomment:
 @font-face { font-family: "PP Mondwest"; src: url("/fonts/PPMondwest-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "PP Neue Montreal"; src: url("/fonts/PPNeueMontreal-Book.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "PP Neue Montreal"; src: url("/fonts/PPNeueMontreal-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+*/
 
 :root {
   --bg: #000;
@@ -57,6 +59,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
 .hero-h .orb { position: absolute; top: -180px; left: 50%; width: 340px; height: 340px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); z-index: -1; }
 .hero-h .bloom { position: absolute; inset: 0; z-index: -2; background: radial-gradient(60% 55% at 50% 0%, rgba(227, 18, 75, 0.26), rgba(227, 18, 75, 0.06) 55%, transparent 75%); }
 .lines { position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: repeating-linear-gradient(90deg, transparent 0 125px, rgba(255, 255, 255, 0.05) 125px 126px); background-position: center; mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%); }
+.hero-scene { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity 1.2s ease; }
+.hero-scene.ready { opacity: 1; }
+.hero-scene canvas { display: block; width: 100% !important; height: 100% !important; }
 .hero-h h1 { font-size: clamp(60px, 9vw, 120px); line-height: 1; font-weight: 500; }
 .hero-h p { color: var(--mute); font-size: 18px; line-height: 30px; max-width: 700px; margin: 32px auto 40px; }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.24s both; }
@@ -222,7 +227,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
 @media (max-width: 900px) {
   .pcard.feat { grid-template-columns: minmax(0, 1fr); }
   .pcard.feat .pc-txt { padding: 32px 32px 0; }
-  .pcard.feat .pc-vis { padding: 32px 0 0; min-height: 340px; }
+  .pcard.feat .pc-vis { padding: 28px 20px 0; min-height: 300px; }
+  .pcard.feat .pc-vis > .browser { margin: 0 0 24px; }
   .c8, .c4, .c6, .c3, .c9 { grid-column: 1 / -1; }
   .photo { min-height: 220px; }
 }
@@ -230,7 +236,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .topnav { gap: 16px; padding: 0 18px 0 14px; height: 56px; font-size: 14px; }
   .topnav .sep { display: none; }
   .st { font-size: 40px; margin-bottom: 32px; }
-  .hero-h .orb { width: 240px; height: 240px; top: -130px; }
+  .hero-h .orb { width: 220px; height: 220px; top: -150px; opacity: 0.55; }
+  .hero-h { justify-content: flex-end; padding-top: 300px; padding-bottom: 72px; }
   .hero-h p { font-size: 16px; line-height: 28px; }
   .hero-h .pill { width: 160px; }
   .cards { grid-template-columns: minmax(0, 1fr); }
@@ -246,7 +253,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .htl { grid-auto-flow: row; }
   .htl > div::before { right: 0; }
   .home-sec { padding-top: 96px; }
-  .mail { width: 100%; max-width: 320px; height: 64px; }
+  .mail { width: 100%; max-width: 340px; height: 64px; order: -1; flex: 1 1 100%; }
+  .hello .row { gap: 14px; }
   .circ { width: 64px; height: 64px; }
   .hello { padding: 160px 20px 140px; }
   .meta, .impact, .grid3, .grid2, .grid4 { grid-template-columns: minmax(0, 1fr); }
@@ -295,4 +303,21 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .split .pshot { width: 200px; margin: 0 auto; }
   .pf-h, .pf-r { gap: 8px; }
   .pf-r span { padding: 12px; font-size: 14px; }
+}
+
+/* ---------------- release timeline ---------------- */
+.rtl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.rtl li { position: relative; padding: 30px 10px 0 0; }
+.rtl li::before { content: ""; position: absolute; top: 8px; left: 0; right: 0; height: 2px; background: #2f2f35; }
+.rtl li:last-child::before { right: auto; width: 14px; }
+.rtl i { position: absolute; top: 2px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.12); }
+.rtl .v { color: var(--ink); font-size: 12px; }
+.rtl .w { color: var(--mute); font-size: 13px; line-height: 18px; margin-top: 4px; }
+@media (max-width: 760px) {
+  .rtl { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .rtl li { padding: 0 0 18px 30px; }
+  .rtl li::before { top: 8px; bottom: -8px; left: 6px; right: auto; width: 2px; height: auto; }
+  .rtl li:last-child::before { display: none; }
+  .rtl i { top: 2px; }
+  .rtl .w { margin-top: 2px; }
 }

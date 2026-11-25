@@ -1,5 +1,6 @@
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
+import HeroSceneLoader from "@/components/HeroSceneLoader";
 import { caseStudies } from "@/content/case-studies";
 import { alsoBuilt, site } from "@/content/site";
 
@@ -24,6 +25,7 @@ export default function HomePage() {
         <div className="bloom" />
         <div className="lines" />
         <div className="orb" aria-hidden="true" />
+        <HeroSceneLoader />
         <h1>
           Hi there,
           <br />I am {site.name.split(" ")[0]}
