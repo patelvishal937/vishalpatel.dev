@@ -13,6 +13,9 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+// keep in sync with the split-hero media query in globals.css
+const SPLIT_AT = 1024;
+
 const vertex = /* glsl */ `
   uniform float uTime;
   uniform float uPixel;     // device pixel ratio
@@ -177,23 +180,35 @@ export default function HeroScene() {
       const vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
       const u = vh / h; // world units per CSS pixel at z = 0
       base.u = u;
+      // The orbit ring reaches ~1.8 radii sideways and ~1.5 radii up and down
+      // (it's tilted), so every size below is limited by the space it has.
+      const REACH_X = 1.8; // ring 1.55 + spread + breathing + perspective
+      const REACH_Y = 1.5;
+      const EDGE = 12; // keep this many px clear of the screen edge
       const phoneW = w <= 640;
-      const split = w > 900; // desktop: text on the left, sphere on the right
+      const split = w >= SPLIT_AT; // desktop: text on the left, sphere on the right
       const copy = host!.parentElement?.querySelector<HTMLElement>(".hero-copy");
       const copyTop = copy ? copy.offsetTop : 380;
       let rPx: number;
       let cx: number; // sphere centre in CSS px, relative to the hero
       let cy: number;
       if (split && copy) {
-        rPx = THREE.MathUtils.clamp(Math.min(copy.offsetWidth * 0.19, h * 0.27), 150, 230);
-        cx = copy.offsetLeft + copy.offsetWidth * 0.74;
-        cy = copyTop + copy.offsetHeight / 2;
+        // the free area right of the text column
+        const textRight = copy.offsetLeft + Math.min(copy.offsetWidth * 0.52, 600);
+        const free = w - EDGE - textRight;
+        cx = textRight + free / 2;
+        cy = THREE.MathUtils.clamp(copyTop + copy.offsetHeight / 2, 0, h);
+        rPx = Math.min(230, free / 2 / REACH_X, (Math.min(cy, h - cy) - EDGE) / REACH_Y);
       } else {
-        // stacked: centred just above the heading
-        rPx = phoneW ? 112 : 150;
+        // stacked: centred just above the heading, as big as the width and the
+        // space above the heading allow
+        const gap = phoneW ? 28 : 40;
+        const room = copyTop - gap - EDGE; // vertical space above the heading
+        rPx = Math.min(phoneW ? 120 : 160, (w / 2 - EDGE) / REACH_X, room / (2 * REACH_Y));
         cx = w / 2;
-        cy = Math.max(rPx + (phoneW ? 40 : 50), copyTop - rPx - (phoneW ? 70 : 90));
+        cy = copyTop - gap - rPx * REACH_Y;
       }
+      rPx = Math.max(rPx, 60);
       base.x = (cx - w / 2) * u;
       base.y = vh / 2 - cy * u;
       group.position.set(base.x, base.y, 0);
