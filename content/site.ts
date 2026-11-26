@@ -17,7 +17,7 @@ export const site = {
   email: "patelvishal93137@gmail.com",
   linkedin: "https://www.linkedin.com/in/patel-vishal-b46b2b240/",
   resume: "/resume.pdf", // built from resume/resume.html with `npm run resume`
-  url: "https://vishalpatel.dev", // TODO: replace with your real domain once deployed
+  url: "https://vishalpatel-dev.vercel.app", // live site; change here if a custom domain is added
   tagline: "I build AI-powered products, from mobile apps to the tools AI agents use.",
   intro:
     "AI-First Engineer at Questera. I ship Flutter apps to the App Store and Play Store, build full-stack products, and design MCP servers and generation systems that let AI do real work. I work with Claude as my pair programmer, from requirements to release.",
