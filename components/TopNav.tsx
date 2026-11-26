@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { site } from "@/content/site";
 import SectionLink from "./SectionLink";
@@ -56,6 +57,9 @@ export default function TopNav() {
           {labels[id]}
         </SectionLink>
       ))}
+      <Link className="l" href="/blog">
+        Blog
+      </Link>
       <a className="l" href={site.resume} target="_blank" rel="noopener noreferrer">
         Resume ↗
       </a>
