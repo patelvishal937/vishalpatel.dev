@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MoreCta } from "@/components/ui";
 import { caseStudies, getCaseStudy, nextCaseStudy } from "@/content/case-studies";
+import { site } from "@/content/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -16,7 +17,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const c = getCaseStudy(slug);
   if (!c) return {};
-  return { title: c.title, description: c.summary, alternates: { canonical: `/work/${c.slug}` }, openGraph: { title: c.title, description: c.summary } };
+  return {
+    title: c.seo.title,
+    description: c.seo.description,
+    alternates: { canonical: `/work/${c.slug}` },
+    openGraph: { type: "article", title: c.seo.title, description: c.seo.description, url: `/work/${c.slug}` },
+    twitter: { card: "summary_large_image", title: c.seo.title, description: c.seo.description },
+  };
 }
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -25,9 +32,32 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!c) notFound();
   const next = nextCaseStudy(slug);
   const { Body } = c;
+  const url = `${site.url}/work/${c.slug}`;
+  const ld = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: c.title,
+      headline: c.seo.title,
+      description: c.seo.description,
+      url,
+      author: { "@id": `${site.url}/#person` },
+      creator: { "@id": `${site.url}/#person` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+        { "@type": "ListItem", position: 2, name: "Work", item: `${site.url}/work` },
+        { "@type": "ListItem", position: 3, name: c.title, item: url },
+      ],
+    },
+  ];
 
   return (
     <article>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
       <div className="cs-bar wrap">
         <div className="in">
           <Link className="back" href="/work" aria-label="Back to all work">

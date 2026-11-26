@@ -11,7 +11,8 @@ export type CaseStudy = {
   title: string;
   tag: string; // small line under the title and on the card, e.g. "QUESTERA · 2026"
   featured?: boolean; // full-width card with the visual on the right
-  summary: string; // one line on the portfolio card and in meta description
+  summary: string; // one line on the portfolio card
+  seo: { title: string; description: string }; // browser tab / Google title (~45 chars) and meta description (<=160)
   meta: { label: string; value: string }[]; // MY ROLE / TEAM / TIMELINE
   cover: ReactNode; // visual on the portfolio card, anchored to the card's bottom edge
   hero: ReactNode; // visual in the big hero panel
@@ -26,6 +27,10 @@ export const caseStudies: CaseStudy[] = [
     tag: "QUESTERA · 2026",
     featured: true,
     summary: "Taking an AI app builder from web-only to the App Store and Google Play.",
+    seo: {
+      title: "Greta AI mobile app: Flutter case study",
+      description: "How I took Greta, an AI app builder, from web-only to a Flutter app on iOS and Android: 16 store releases, 2,500+ downloads and 4.8 stars on Google Play.",
+    },
     meta: [
       { label: "MY ROLE", value: "AI-First Engineer · Flutter app, login and accounts, credits and rewards, releases" },
       { label: "TEAM", value: "Questera product, backend and design team" },
@@ -45,6 +50,10 @@ export const caseStudies: CaseStudy[] = [
     title: "Clipmetry",
     tag: "PERSONAL PRODUCT · 2026",
     summary: "Competitor intelligence for Instagram Reels. Designed, built and shipped solo in one week.",
+    seo: {
+      title: "Clipmetry: AI SaaS built solo in 7 days",
+      description: "Clipmetry, my competitor intelligence SaaS for Instagram Reels: outlier scores, Gemini hook analysis, Supabase and Razorpay. Built and shipped solo in a week.",
+    },
     meta: [
       { label: "MY ROLE", value: "Solo founder and developer · product, design, code, SEO" },
       { label: "TEAM", value: "Just me, with Claude as pair programmer" },
@@ -59,6 +68,10 @@ export const caseStudies: CaseStudy[] = [
     title: "Greta MCP server",
     tag: "QUESTERA · 2026",
     summary: "The MCP server that lets Claude, ChatGPT, Cursor and VS Code build, deploy and grow real Greta projects.",
+    seo: {
+      title: "Greta MCP server: remote MCP case study",
+      description: "The remote MCP server that lets Claude, ChatGPT and Cursor build and deploy real apps: Streamable HTTP, OAuth 2.1, 45+ tools, credit caps and approvals.",
+    },
     meta: [
       { label: "MY ROLE", value: "AI-First Engineer · led the MCP work: research, plan, build, testing, launch" },
       { label: "TEAM", value: "Me with Claude as pair programmer, plus Questera platform engineers" },
@@ -78,6 +91,10 @@ export const caseStudies: CaseStudy[] = [
     tag: "QUESTERA · 2026",
     featured: true,
     summary: "A new Greta project type that turns a prompt into a cinematic product site with real 3D models.",
+    seo: {
+      title: "AI 3D website generation with Three.js",
+      description: "A Greta project type that turns a prompt into a 3D product website: a prebuilt Three.js runtime, .glb models, a planner and approval for paid steps.",
+    },
     meta: [
       { label: "MY ROLE", value: "AI-First Engineer · owned the feature from research to build, testing and fixes" },
       { label: "TEAM", value: "Me with Claude as pair programmer, plus Questera platform engineers" },

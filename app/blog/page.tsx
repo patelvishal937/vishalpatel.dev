@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Blog: building with AI, MCP and Flutter",
   description:
-    "Notes from shipping real products: production MCP servers, Claude Code workflows, Flutter apps on the App Store and Google Play, and AI-generated 3D websites. By Vishal Patel, AI-First Engineer.",
+    "Notes from shipping real products: production MCP servers, Claude Code workflows and Flutter apps on the App Store and Google Play. By Vishal Patel.",
   alternates: { canonical: "/blog" },
 };
 

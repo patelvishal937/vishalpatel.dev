@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: p.description,
     keywords: p.keywords,
     alternates: { canonical: `/blog/${p.slug}` },
-    openGraph: { type: "article", title: p.seoTitle, description: p.description, publishedTime: p.date, authors: [site.name] },
+    openGraph: { type: "article", url: `/blog/${p.slug}`, title: p.seoTitle, description: p.description, publishedTime: p.date, authors: [site.name] },
     twitter: { card: "summary_large_image", title: p.seoTitle, description: p.description },
   };
 }
@@ -45,10 +45,19 @@ export default async function PostPage({ params }: Props) {
     author: { "@type": "Person", "@id": `${site.url}/#person`, name: site.name, url: site.url },
     publisher: { "@id": `${site.url}/#person` },
   };
+  const crumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${site.url}/blog` },
+      { "@type": "ListItem", position: 3, name: p.seoTitle, item: `${site.url}/blog/${p.slug}` },
+    ],
+  };
 
   return (
     <article className="blog">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([ld, crumbs]).replace(/</g, "\\u003c") }} />
       <div className="cs-bar wrap">
         <div className="in">
           <Link className="back" href="/blog" aria-label="Back to all posts">

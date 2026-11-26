@@ -8,9 +8,9 @@ import "./globals.css";
 import { site } from "@/content/site";
 
 // Search-facing copy: name + title + the skills recruiters filter on.
-const seoTitle = `${site.name} · ${site.role} | Flutter, Full-Stack & MCP Developer in Ahmedabad, India`;
+const seoTitle = `${site.name} · ${site.role} | Flutter, Full-Stack, MCP`;
 const seoDescription =
-  "Vishal Patel is an AI-First Engineer in Ahmedabad, India: Flutter apps on iOS and Android, full-stack Next.js and Node.js, and MCP servers that let Claude, ChatGPT and Cursor build real software. Open to remote AI, full-stack and mobile roles.";
+  "AI-First Engineer in Ahmedabad, India. I ship Flutter apps for iOS and Android, full-stack Next.js products and MCP servers for Claude. Open to remote roles.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

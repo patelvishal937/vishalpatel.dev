@@ -4,7 +4,7 @@ import Home from "@/components/Home";
 export const metadata: Metadata = {
   title: "Work",
   description: "Things I have shipped: the Greta AI Flutter app, Greta\'s MCP server, 3D website generation and Clipmetry.",
-  alternates: { canonical: "/work" },
+  alternates: { canonical: "/" },
 };
 
 // Same one-page site, opened at the work section.

@@ -17,6 +17,7 @@ export const site = {
   email: "patelvishal93137@gmail.com",
   linkedin: "https://www.linkedin.com/in/patel-vishal-b46b2b240/",
   resume: "/resume.pdf", // built from resume/resume.html with `npm run resume`
+  updated: "2026-11-26", // bump when the site content changes (sitemap lastmod)
   url: "https://vishalpatel-dev.vercel.app", // live site; change here if a custom domain is added
   tagline: "I build AI-powered products, from mobile apps to the tools AI agents use.",
   intro:
