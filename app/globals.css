@@ -72,7 +72,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
 
 /* ---------------- section titles ---------------- */
 .st { text-align: center; font-size: clamp(44px, 5vw, 64px); line-height: 1; letter-spacing: -0.4px; margin: 0 0 48px; }
-.home-sec { padding: 120px 0 0; scroll-margin-top: 40px; }
+.home-sec { padding-top: 120px; scroll-margin-top: 40px; } /* top only: keep the side gutter from .wide */
 
 /* ---------------- project cards ---------------- */
 .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
@@ -254,6 +254,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .htl { grid-auto-flow: row; }
   .htl > div::before { right: 0; }
   .home-sec { padding-top: 96px; }
+  .wide, .wrap { padding-left: 20px; padding-right: 20px; }
   .mail { width: 100%; max-width: 340px; height: 64px; order: -1; flex: 1 1 100%; }
   .hello .row { gap: 14px; }
   .circ { width: 64px; height: 64px; }
