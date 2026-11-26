@@ -13,15 +13,6 @@ const Arrow = () => (
   </svg>
 );
 
-const heroTags = [
-  { label: "Flutter", dot: "#54c5f8", pos: "l1", delay: "0s" },
-  { label: "MCP servers", dot: "#e3124b", pos: "l2", delay: "-1.6s" },
-  { label: "Three.js", dot: "#ffffff", pos: "l3", delay: "-3.1s" },
-  { label: "Next.js", dot: "#ffffff", pos: "r1", delay: "-0.8s" },
-  { label: "AI agents", dot: "#a78bfa", pos: "r2", delay: "-2.4s" },
-  { label: "Claude Code", dot: "#d97757", pos: "r3", delay: "-3.8s" },
-];
-
 const timeline = [
   { d: "Oct 2023 - May 2024", t: "Flutter Developer", c: "Prepseed" },
   { d: "May 2024 - Now", t: "AI-First Engineer", c: "Quest Labs (Questera)" },
@@ -41,15 +32,6 @@ export default function Home({ section }: { section?: Section }) {
         <div className="lines" />
         <div className="orb" aria-hidden="true" />
         <HeroSceneLoader />
-        {/* floating tags of the real stack, anchored just above the heading */}
-        <div className="hero-tags" aria-hidden="true">
-          {heroTags.map((t) => (
-            <span key={t.label} className={`htag ${t.pos}`} style={{ animationDelay: t.delay }}>
-              <i style={{ background: t.dot }} />
-              {t.label}
-            </span>
-          ))}
-        </div>
         <h1>
           Hi there,
           <br />I am {site.name.split(" ")[0]}
