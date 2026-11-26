@@ -418,3 +418,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .post-author { padding: 20px; }
   .topnav { gap: 12px; font-size: 13px; }
 }
+
+/* quiet footer link to the blog: findable by Google, not a portfolio feature */
+.foot-links { margin: 56px 0 0; font-size: 14px; }
+.foot-links a { color: var(--dim); text-decoration: none; }
+.foot-links a:hover { color: var(--mute); }

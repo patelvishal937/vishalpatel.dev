@@ -6,7 +6,6 @@ import TopNav from "@/components/TopNav";
 import HeroSceneLoader from "@/components/HeroSceneLoader";
 import { caseStudies } from "@/content/case-studies";
 import { alsoBuilt, site } from "@/content/site";
-import { formatDate, getPosts } from "@/lib/blog";
 
 const Arrow = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -134,27 +133,6 @@ export default function Home({ section }: { section?: Section }) {
         </div>
       </section>
 
-      {/* ---------- latest notes (links the blog from the home page) ---------- */}
-      <section className="home-sec wide" aria-labelledby="notes-title">
-        <h2 className="st" id="notes-title">Notes from shipping</h2>
-        <ul className="post-list home-notes">
-          {getPosts().slice(0, 3).map((p) => (
-            <li key={p.slug}>
-              <Link href={`/blog/${p.slug}`} className="post-row">
-                <span className="post-meta">
-                  <time dateTime={p.date}>{formatDate(p.date)}</time> · {p.readMins} min read
-                </span>
-                <h3>{p.title}</h3>
-                <p>{p.description}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <p className="notes-all">
-          <Link href="/blog">All notes →</Link>
-        </p>
-      </section>
-
       {/* ---------- say hello ---------- */}
       <section className="hello" id="contact">
         <div className="bloom" />
@@ -182,6 +160,9 @@ export default function Home({ section }: { section?: Section }) {
             </svg>
           </a>
         </div>
+        <p className="foot-links">
+          <Link href="/blog">Writing</Link>
+        </p>
       </section>
     </>
   );
