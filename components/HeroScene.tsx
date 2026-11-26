@@ -163,8 +163,9 @@ export default function HeroScene() {
     glow.position.z = -1.5;
     scene.add(glow);
 
-    // layout in CSS pixels: the sphere sits centred just above the heading
-    const base = { y: 0, u: 0.01, w: 1, h: 1 };
+    // layout in CSS pixels: on desktop the sphere sits in the right column next to
+    // the text; on tablets and phones it is centred just above the heading
+    const base = { x: 0, y: 0, u: 0.01, w: 1, h: 1 };
     function layout() {
       const w = host!.clientWidth;
       const h = host!.clientHeight;
@@ -177,17 +178,30 @@ export default function HeroScene() {
       const u = vh / h; // world units per CSS pixel at z = 0
       base.u = u;
       const phoneW = w <= 640;
-      const rPx = phoneW ? 112 : 150;
-      const h1 = host!.parentElement?.querySelector("h1");
-      const h1Top = h1 ? h1.offsetTop : 380;
-      const centerPx = Math.max(rPx + (phoneW ? 40 : 50), h1Top - rPx - (phoneW ? 70 : 90));
-      base.y = vh / 2 - centerPx * u;
-      group.position.y = base.y;
+      const split = w > 900; // desktop: text on the left, sphere on the right
+      const copy = host!.parentElement?.querySelector<HTMLElement>(".hero-copy");
+      const copyTop = copy ? copy.offsetTop : 380;
+      let rPx: number;
+      let cx: number; // sphere centre in CSS px, relative to the hero
+      let cy: number;
+      if (split && copy) {
+        rPx = THREE.MathUtils.clamp(Math.min(copy.offsetWidth * 0.19, h * 0.27), 150, 230);
+        cx = copy.offsetLeft + copy.offsetWidth * 0.74;
+        cy = copyTop + copy.offsetHeight / 2;
+      } else {
+        // stacked: centred just above the heading
+        rPx = phoneW ? 112 : 150;
+        cx = w / 2;
+        cy = Math.max(rPx + (phoneW ? 40 : 50), copyTop - rPx - (phoneW ? 70 : 90));
+      }
+      base.x = (cx - w / 2) * u;
+      base.y = vh / 2 - cy * u;
+      group.position.set(base.x, base.y, 0);
       group.scale.setScalar(rPx * u);
       uniforms.uRadius.value = 85 * u;
       uniforms.uPush.value = 38 * u;
       const depth = (camera.position.z - glow.position.z) / camera.position.z;
-      glow.position.y = base.y * depth;
+      glow.position.set(base.x * depth, base.y * depth, glow.position.z);
       const gs = rPx * 3.6 * u * depth;
       glow.scale.set(gs, gs, 1);
     }
@@ -221,7 +235,7 @@ export default function HeroScene() {
       else m.lerp(target, 0.12);
       // slow spin, a slight lean toward the cursor
       if (target.x === OFF) tiltTarget.set(0, 0);
-      else tiltTarget.set(THREE.MathUtils.clamp(target.x / 6, -0.3, 0.3), THREE.MathUtils.clamp((target.y - base.y) / 6, -0.2, 0.2));
+      else tiltTarget.set(THREE.MathUtils.clamp((target.x - base.x) / 6, -0.3, 0.3), THREE.MathUtils.clamp((target.y - base.y) / 6, -0.2, 0.2));
       tilt.lerp(tiltTarget, 0.05);
       sphere.rotation.y = t * 0.12;
       ring.rotation.z = -t * 0.08;

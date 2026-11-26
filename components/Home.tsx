@@ -32,18 +32,21 @@ export default function Home({ section }: { section?: Section }) {
         <div className="lines" />
         <div className="orb" aria-hidden="true" />
         <HeroSceneLoader />
-        <h1>
-          Hi there,
-          <br />I am {site.name.split(" ")[0]}
-        </h1>
-        <p>
-          An {site.role} with {site.experience.replace("~", "")} of experience. Currently building Greta at Questera, an AI app builder, from its Flutter app to the MCP tools AI agents use.
-        </p>
-        <div className="hero-ctas">
-          <SectionLink className="pill" to="contact">Get in touch</SectionLink>
-          <a className="pill ghost" href={site.resume} target="_blank" rel="noopener noreferrer">
-            Resume ↗
-          </a>
+        {/* text column: left on desktop (sphere on the right), centred and stacked below that */}
+        <div className="hero-copy">
+          <h1>
+            Hi there,
+            <br />I am {site.name.split(" ")[0]}
+          </h1>
+          <p>
+            An {site.role} with {site.experience.replace("~", "")} of experience. Currently building Greta at Questera, an AI app builder, from its Flutter app to the MCP tools AI agents use.
+          </p>
+          <div className="hero-ctas">
+            <SectionLink className="pill" to="contact">Get in touch</SectionLink>
+            <a className="pill ghost" href={site.resume} target="_blank" rel="noopener noreferrer">
+              Resume ↗
+            </a>
+          </div>
         </div>
       </section>
 
