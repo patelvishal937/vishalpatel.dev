@@ -22,7 +22,7 @@ export type CaseStudy = {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "greta-mobile",
-    title: "Greta AI, in your pocket",
+    title: "Greta AI mobile app",
     tag: "QUESTERA · 2026",
     featured: true,
     summary: "Taking an AI app builder from web-only to the App Store and Google Play.",
@@ -42,7 +42,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "clipmetry",
-    title: "Know why clips go viral",
+    title: "Clipmetry",
     tag: "PERSONAL PRODUCT · 2026",
     summary: "Competitor intelligence for Instagram Reels. Designed, built and shipped solo in one week.",
     meta: [
@@ -56,7 +56,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "greta-mcp",
-    title: "Building apps from any AI assistant",
+    title: "Greta MCP server",
     tag: "QUESTERA · 2026",
     summary: "The MCP server that lets Claude, ChatGPT, Cursor and VS Code build, deploy and grow real Greta projects.",
     meta: [
@@ -74,7 +74,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "greta-3d",
-    title: "One prompt, a real 3D website",
+    title: "3D website generation",
     tag: "QUESTERA · 2026",
     featured: true,
     summary: "A new Greta project type that turns a prompt into a cinematic product site with real 3D models.",

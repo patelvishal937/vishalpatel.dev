@@ -363,3 +363,17 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .pcard .pc-vis > .browser, .pcard.feat .pc-vis > .browser { width: 100%; margin: 0; align-self: flex-start; }
   .pcard .pc-vis > div:has(> .browser) { width: 100% !important; margin: 0; transform: none !important; }
 }
+
+/* ---------------- side-by-side cards (tablet and desktop) ----------------
+   Same visual frame in every half-width card: fixed height, pinned to the
+   bottom, visual top-aligned and full width, so the two cards in a row line
+   up no matter how long the text is. */
+@media (min-width: 641px) {
+  .pcard:not(.feat) .pc-vis { flex: none; height: 300px; min-height: 0; margin-top: auto; padding: 0 40px; align-items: flex-start; justify-content: center; }
+  .pcard:not(.feat) .pc-vis > .browser,
+  .pcard:not(.feat) .pc-vis > div:has(> .browser) { width: 100% !important; margin: 0; transform: none !important; }
+  .pcard:not(.feat) .pc-vis > .pshot { width: 220px; margin: 0; }
+  .pcard:not(.feat) .pc-vis { overflow: hidden; }
+  .pcard:not(.feat) .pc-vis .browser { min-height: 320px; } /* every frame runs off the card's bottom edge */
+  .pcard:not(.feat) .pc-txt { padding-bottom: 32px; }
+}
