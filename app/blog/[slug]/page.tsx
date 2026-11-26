@@ -18,12 +18,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getPost(slug);
   if (!p) return {};
   return {
-    title: p.title,
+    title: p.seoTitle,
     description: p.description,
     keywords: p.keywords,
     alternates: { canonical: `/blog/${p.slug}` },
-    openGraph: { type: "article", title: p.title, description: p.description, publishedTime: p.date, authors: [site.name] },
-    twitter: { card: "summary_large_image", title: p.title, description: p.description },
+    openGraph: { type: "article", title: p.seoTitle, description: p.description, publishedTime: p.date, authors: [site.name] },
+    twitter: { card: "summary_large_image", title: p.seoTitle, description: p.description },
   };
 }
 

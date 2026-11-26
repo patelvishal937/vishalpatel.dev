@@ -3,7 +3,8 @@
 // page, sitemap and RSS feed pick it up on the next build.
 //
 // ---
-// title: Post title
+// title: Post title (the H1 on the page)
+// seoTitle: Shorter title for the browser tab and Google (optional, ~45 chars)
 // description: One or two sentences for Google and link previews
 // date: 2026-11-26
 // keywords: comma, separated, search phrases
@@ -19,6 +20,7 @@ import path from "node:path";
 export type Post = {
   slug: string;
   title: string;
+  seoTitle: string;
   description: string;
   date: string; // YYYY-MM-DD
   keywords: string[];
@@ -117,6 +119,7 @@ function parse(file: string): Post {
   return {
     slug: file.replace(/\.md$/, ""),
     title: meta.title,
+    seoTitle: meta.seoTitle || meta.title,
     description: meta.description,
     date: meta.date,
     keywords: (meta.keywords || "").split(",").map((s) => s.trim()).filter(Boolean),
