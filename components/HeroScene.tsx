@@ -3,7 +3,7 @@
 // The 3D hero: a clay-style 3D avatar of Vishal in front of a soft red glow. Styled like a matte 3D avatar illustration (bead
 // eyes, thick brows, open smile, rounded bust), with his own features: thick
 // black wavy hair with a fringe, light-grey rectangular glasses, a round face,
-// clean-shaven, and a blue mandarin-collar shirt. His head follows the pointer
+// clean-shaven, in a charcoal blazer with a white shirt and red pocket square. His head follows the pointer
 // and he blinks; the glow drifts gently the other way.
 //
 // Plain Three.js, loaded after first paint (see HeroSceneLoader). Rendering
@@ -57,45 +57,83 @@ function buildAvatar() {
   const avatar = new THREE.Group();
   const skin = clay(0xe3b18f, 0.62);
   const hair = clay(0x151110, 0.78);
-  const shirt = clay(0x34568f, 0.85);
-  const shirtDark = clay(0x2a4677, 0.85);
 
-  // ---------- bust: blue shirt with a mandarin collar ----------
-  const profile = [
-    [0.001, -1.36],
-    [0.72, -1.34],
-    [0.98, -1.16],
-    [1.05, -0.86],
-    [0.99, -0.56],
-    [0.82, -0.29],
-    [0.52, -0.13],
-    [0.28, -0.07],
-    [0.001, -0.06],
-  ].map(([x, y]) => new THREE.Vector2(x, y));
-  const torso = new THREE.Mesh(new THREE.LatheGeometry(profile, 80), shirt);
+  // ---------- bust: charcoal blazer, white shirt, red pocket square ----------
+  // One smooth lathe for the body; the blazer, lapels and the white shirt "V"
+  // are painted on with vertex colours so the edges follow the curve.
+  const outline = new THREE.SplineCurve(
+    [
+      [0.001, -1.36],
+      [0.72, -1.34],
+      [0.98, -1.16],
+      [1.05, -0.86],
+      [0.99, -0.56],
+      [0.82, -0.29],
+      [0.52, -0.13],
+      [0.28, -0.07],
+      [0.001, -0.06],
+    ].map(([x, y]) => new THREE.Vector2(x, y)),
+  ).getPoints(140);
+  const bodyGeo = new THREE.LatheGeometry(outline, 260);
+  const BLAZER = new THREE.Color(0x2e323d);
+  const LAPEL = new THREE.Color(0x22252d);
+  const SHIRT = new THREE.Color(0xc9c7c1);
+  const pos = bodyGeo.getAttribute("position");
+  const colors = new Float32Array(pos.count * 3);
+  const c = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const y = pos.getY(i);
+    const z = pos.getZ(i);
+    c.copy(BLAZER);
+    if (z > 0) {
+      // soft edges (smoothstep over a small band) so the V doesn't look stepped
+      const e = 0.018;
+      const ax = Math.abs(x);
+      const t = THREE.MathUtils.clamp((y + 0.8) / 0.74, 0, 1); // 0 at the V point, 1 at the neck
+      const v = 0.3 * t; // half-width of the shirt V
+      const lapel = v + 0.15 * Math.min(1, t * 4 + 0.35); // lapels run along the V
+      const lapelAmt = THREE.MathUtils.smoothstep(lapel + e, lapel - e, ax) * THREE.MathUtils.smoothstep(y, -0.93, -0.87);
+      const shirtAmt = THREE.MathUtils.smoothstep(v + e, v - e, ax) * THREE.MathUtils.smoothstep(y, -0.82, -0.78);
+      c.lerp(LAPEL, lapelAmt).lerp(SHIRT, shirtAmt);
+    }
+    colors.set([c.r, c.g, c.b], i * 3);
+  }
+  bodyGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+  const torso = new THREE.Mesh(bodyGeo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.82 }));
   torso.scale.set(0.86, 0.9, 0.58);
   avatar.add(torso);
-  const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.255, 0.285, 0.14, 48, 1, true), shirtDark);
-  collar.position.y = -0.02;
-  collar.scale.set(1, 1, 0.92);
+
+  // white shirt collar, open at the front, with two collar points
+  const shirtMat = clay(0xd2d0ca, 0.7);
+  const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.235, 0.26, 0.12, 48, 1, true, 0.5, Math.PI * 2 - 1.0), shirtMat);
+  collar.position.y = 0.0;
+  collar.scale.set(1, 1, 0.95);
   avatar.add(collar);
-  const collarRim = new THREE.Mesh(new THREE.TorusGeometry(0.255, 0.016, 10, 48), shirtDark);
-  collarRim.rotation.x = Math.PI / 2;
-  collarRim.position.y = 0.05;
-  collarRim.scale.set(1, 0.92, 1);
-  avatar.add(collarRim);
-  // placket with two buttons
-  const placket = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.42, 0.02), shirtDark);
-  placket.position.set(0, -0.34, 0.5);
-  placket.rotation.x = -0.32;
-  avatar.add(placket);
-  const button = clay(0xf2efe8, 0.4);
-  for (const y of [-0.22, -0.42]) {
-    const b = new THREE.Mesh(new THREE.SphereGeometry(0.022, 16, 16), button);
-    b.scale.set(1, 1, 0.5);
-    b.position.set(0, y, 0.475 + (-0.22 - y) * 0.33 + 0.02);
-    avatar.add(b);
+  for (const side of [-1, 1]) {
+    const point = capsuleBetween(new THREE.Vector3(side * 0.1, 0.02, 0.2), new THREE.Vector3(side * 0.17, -0.1, 0.25), 0.032, shirtMat);
+    point.scale.z = 0.55;
+    avatar.add(point);
   }
+
+  // red pocket square on his left breast pocket (viewer's right)
+  const sq = new THREE.Shape();
+  sq.moveTo(-0.08, 0);
+  sq.lineTo(-0.05, 0.07);
+  sq.lineTo(-0.01, 0.025);
+  sq.lineTo(0.03, 0.08);
+  sq.lineTo(0.08, 0);
+  sq.lineTo(-0.08, 0);
+  const pocket = new THREE.Mesh(new THREE.ExtrudeGeometry(sq, { depth: 0.02, bevelEnabled: true, bevelThickness: 0.006, bevelSize: 0.006, bevelSegments: 2 }), clay(ACCENT, 0.55));
+  pocket.position.set(0.45, -0.5, 0.47);
+  pocket.rotation.set(-0.2, 0.5, 0);
+  avatar.add(pocket);
+
+  // one jacket button just under the V
+  const btn = new THREE.Mesh(new THREE.SphereGeometry(0.035, 20, 20), clay(0x111216, 0.35));
+  btn.scale.set(1, 1, 0.45);
+  btn.position.set(0, -0.88, 0.6);
+  avatar.add(btn);
 
   // neck
   const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.22, 0.34, 28), skin);
@@ -265,7 +303,7 @@ export default function HeroScene() {
     const fill = new THREE.DirectionalLight(0xe8eeff, 0.6);
     fill.position.set(-4, 0.5, 5);
     scene.add(fill);
-    const rim = new THREE.PointLight(ACCENT, 22, 10, 1.5); // the glow lights his edges red
+    const rim = new THREE.PointLight(ACCENT, 14, 12, 1.5); // the glow lights his edges red
     scene.add(rim);
 
     const { avatar, head, eyes, top, height, headCenter } = buildAvatar();
@@ -313,7 +351,7 @@ export default function HeroScene() {
       base.orbY = (base.avatarY + headCenter * base.s) * depth;
       orb.scale.set(base.orbR * 2, base.orbR * 2, 1);
       orb.position.set(0, base.orbY, ORB_Z);
-      rim.position.set(0, base.orbY, ORB_Z + base.orbR * 0.6);
+      rim.position.set(0, base.orbY + base.orbR * 0.25, ORB_Z - 0.6); // behind and above: lights hair and shoulder edges only
     }
 
     const pointer = new THREE.Vector2(0, 0);
