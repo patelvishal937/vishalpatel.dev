@@ -335,3 +335,31 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
   .hero-h .orb { top: 50%; left: 74%; width: 380px; height: 380px; transform: translate(-50%, -50%); }
   .hero-h .bloom { background: radial-gradient(45% 60% at 74% 50%, rgba(227, 18, 75, 0.2), rgba(227, 18, 75, 0.05) 55%, transparent 75%); }
 }
+
+/* ---------------- project cards on phones ----------------
+   Text, then a "Read case study" link, then the visual in its own rounded
+   frame of a fixed height, so every card has the same rhythm and nothing
+   sits on top of the image. */
+@media (max-width: 640px) {
+  .pcard, .pcard.feat { display: flex; flex-direction: column; min-height: 0; border-radius: 28px; }
+  .pcard .pc-txt, .pcard.feat .pc-txt { order: 1; padding: 26px 24px 0; }
+  .pcard h3 { font-size: 32px; line-height: 38px; margin-top: 8px; }
+  .pcard .pc-tag { font-size: 13px; line-height: 20px; }
+  .pcard .pc-desc { font-size: 16px; line-height: 25px; margin-top: 12px; }
+  .pcard .pc-arrow, .pcard:hover .pc-arrow {
+    order: 2; position: static; align-self: flex-start; width: auto; height: auto; margin: 18px 24px 0; padding: 0;
+    background: none; backdrop-filter: none; border-radius: 0; display: inline-flex; gap: 8px; align-items: center;
+    color: var(--ink); font-size: 15px;
+  }
+  .pcard .pc-arrow::before { content: "Read case study"; }
+  .pcard .pc-vis, .pcard.feat .pc-vis {
+    order: 3; flex: none; height: 250px; min-height: 0; margin: 20px 14px 14px; padding: 18px 18px 0;
+    border-radius: 20px; background: rgba(255, 255, 255, 0.035); overflow: hidden;
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+  /* phone screenshots: show the top of the screen */
+  .pcard .pc-vis > .pshot { width: 190px; margin: 0; }
+  /* browser screenshots and drawn browser frames: full width, top aligned */
+  .pcard .pc-vis > .browser, .pcard.feat .pc-vis > .browser { width: 100%; margin: 0; align-self: flex-start; }
+  .pcard .pc-vis > div:has(> .browser) { width: 100% !important; margin: 0; transform: none !important; }
+}
